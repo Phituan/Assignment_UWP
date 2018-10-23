@@ -1,0 +1,83 @@
+﻿<Page
+    x:Class="ASM.Views.ListMusic"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ASM.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:entity="using:ASM.Entity"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid Background="#F9F9F9"  Margin="0, 20, 0, 0" >
+                <Pivot>
+                    <Pivot.Title>
+                        <TextBlock Text="Music online" FontSize="30" FontWeight="Normal"></TextBlock>
+                    </Pivot.Title>
+                <PivotItem Header="Music">
+                    <Grid Margin="0,0,0,45">
+                        <Grid.Background>
+                            <ImageBrush ImageSource="https://i.gifer.com/7d20.gif" Opacity="0.7"/>
+                        </Grid.Background>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="269*"/>
+                        </Grid.ColumnDefinitions>
+                        <ListView x:Name="MyListView" ItemsSource="{x:Bind ListSong , Mode=TwoWay}" Height="400">
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="entity:Song">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="{x:Bind thumbnail}" Width="100"/>
+                                        <TextBlock Text="{x:Bind name}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                            <StackPanel DataContext="{Binding SelectedItem, ElementName=MyListView}">
+                                <TextBlock Text="{Binding name}"/>
+                                <Image Source="{Binding thumbnail}" Width="200"/>
+                            </StackPanel>
+                            <MediaElement Width="400" Height="100" Source="{Binding SelectedItem.link, ElementName=MyListView}" 
+                      AreTransportControlsEnabled="True">
+                                <MediaElement.TransportControls>
+                                    <MediaTransportControls IsPreviousTrackButtonVisible="True" 
+                                        IsNextTrackButtonVisible="True" 
+                                        IsFastForwardButtonVisible="True"/>
+                                </MediaElement.TransportControls>
+                            </MediaElement>
+                        </StackPanel>
+                    </Grid>
+                </PivotItem>
+                <PivotItem Header="Create Music" >
+                    <ScrollViewer>
+                            <StackPanel>
+                            <StackPanel.Background>
+                                <ImageBrush Opacity="0.5" Stretch="Fill" ImageSource="https://orig00.deviantart.net/6cec/f/2013/097/4/c/blood_elf_dance_by_lenita1-d60se0m.gif"/>
+                            </StackPanel.Background>
+
+                            <TextBlock></TextBlock>
+                                <TextBox Header="Song name" x:Name="txt_name"/>
+                                <TextBlock x:Name="name" Foreground="Red"/>
+                                <TextBox Header="Thumbnail" x:Name="txt_thumbnail"/>
+                                <TextBlock x:Name="thumbnail" Foreground="Red"/>
+                                <TextBox Header="Description" AcceptsReturn="True" Height="100" x:Name="txt_description"/>
+                                <TextBlock x:Name="description" Foreground="Red"/>
+                                <TextBox Header="Singer" x:Name="txt_singer"/>
+                                <TextBlock x:Name="singer" Foreground="Red"/>
+                                <TextBox Header="Author" x:Name="txt_author"/>
+                                <TextBlock x:Name="author" Foreground="Red"/>
+                                <TextBox Header="Link" x:Name="txt_link"/>
+                                <TextBlock x:Name="link" Foreground="Red"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0, 20, 0, 30">
+                                    <Button Content="Save" HorizontalAlignment="Stretch" Margin="0 , 0, 20, 0" Width="100" Background="#f263a8" FontWeight="Medium" Click="btn_add"  Foreground="#ffffff"/>
+                                    <Button Content="Reset" HorizontalAlignment="Stretch" Width="100" Click="btn_reset" FontWeight="Medium" Foreground="#ffffff" Background="#41b7cc"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </PivotItem>
+                </Pivot>
+            </Grid>
+        
+    </Grid>
+</Page>
